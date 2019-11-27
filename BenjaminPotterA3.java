@@ -16,7 +16,7 @@ class BenjaminPotterA3
          int i;
          for (i = top; i > 0 && item.compareTo(list[i - 1]) < 0; i--)
             list[i] = list[i - 1];
-         list[i] = item;
+         list[i] = item; 
       }
       
       return System.currentTimeMillis() - startTime; 
