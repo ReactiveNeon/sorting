@@ -1,8 +1,8 @@
 import java.util.*;
 import java.util.stream.*;
 import java.io.*;
-class BenjaminPotterA3
-{
+class BenjaminPotterA3 {
+
    /* These methods should each do the appropriate
    sort on the String array list,  which contains listSize
    Strings.  The method should return the time the sort takes
@@ -21,8 +21,54 @@ class BenjaminPotterA3
       
       return System.currentTimeMillis() - startTime; 
    }
-   public static double selectSort(String[] list, int listSize){ return 0; }
-   public static double shellsort(String[] list, int listSize){ return 0; }
+   
+   public static double selectSort(String[] list, int listSize){ 
+      long startTime = System.currentTimeMillis();
+   
+      for (int top = listSize - 1; top > 0; top--)
+      {
+         int largeLoc = 0;
+         for (int i = 1; i <= top; i++)
+            if (list[i].compareTo(list[largeLoc]) > 0)
+               largeLoc = i;
+         String temp = list[top];
+         list[top] = list[largeLoc];
+         list[largeLoc] = temp;
+      } 
+      
+      return System.currentTimeMillis() - startTime; 
+   }
+   
+   public static double shellsort(String[] list, int listSize){      
+      long startTime = System.currentTimeMillis();
+      
+      List<Integer> kValues = new ArrayList<Integer>();
+      int k = 1;
+      
+      while (k < listSize) {
+         kValues.add(k);
+         
+         k = (k * 3) + 1; 
+      }
+      
+      for (int a = kValues.size() - 1; a >= 0; a--) 
+      { 
+         int gap = kValues.get(a);
+         
+         for (int i = gap; i < listSize; i++) {
+            String key = list[i];
+            int j = i;
+            while (j >= gap && list[j - gap].compareTo(key) > 0) {
+                list[j] = list[j - gap];
+                j -= gap;
+            }
+            list[j] = key;
+         }
+      }
+      
+      return System.currentTimeMillis() - startTime;
+   }
+   
    /* This method prints up to max items from the list.
    Print each word separated by a space, with as many
    words on each line as possible (up to 80 characters per line)*/
